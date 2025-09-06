@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perishable items</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🧺 Perishable goods bought</h1>
+    <form id="grocery-form">
+      <label for="item-name">Item Name:</label>
+      <input type="text" id="item-name" name="item-name" placeholder="e.g. Milk" required />
+
+      <label for="use-by-date">Use By Date:</label>
+      <input type="date" id="use-by-date" name="use-by-date" required />
+
+      <button type="submit">Add Item</button>
+    </form>
+
+    <div class="list">
+        <a href="http://localhost:3000/download-list" download>
+  <button>📥 Download Grocery List</button>
+</a>
+<button onclick="sendToBackend()">Save to Excel</button>
+      <h2>📝 Your Grocery List</h2>
+      <ul id="grocery-list"></ul>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('grocery-form');
+    const list = document.getElementById('grocery-list');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const itemName = document.getElementById('item-name').value;
+      const useByDate = document.getElementById('use-by-date').value;
+
+      const listItem = document.createElement('li');
+      listItem.textContent = `${itemName} — Use by: ${useByDate}`;
+      list.appendChild(listItem);
+
+      form.reset();
+    });
+
+    
+    
+
+function sendToBackend() {
+  const items = [];
+  document.querySelectorAll('#grocery-list li').forEach(li => {
+    const [name, date] = li.textContent.split(' — Use by: ');
+    items.push({ name, date });
+  });
+
+  fetch('http://localhost:3000/save-list', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items })
+  })
+  .then(res => res.text())
+  .then(msg => alert(msg))
+  .catch(err => alert('Error saving list: ' + err));
+}
+
+
+
+
+  </script>
+  
+
+</body>
+</html>
