@@ -28,6 +28,12 @@ body {
         /*margin-top: 0;*/
     }
 
+    .wrapper header h2{
+        text-align: center;
+        top: 8%;
+        /*margin-top: 0;*/
+    }
+
 
 .mascot {
     position: absolute;
@@ -111,4 +117,5 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
+
 }   
