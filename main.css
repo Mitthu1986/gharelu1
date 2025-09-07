@@ -28,7 +28,7 @@ body {
         /*margin-top: 0;*/
     }
 
-    .wrapper header h2{
+    .wrapper header h3{
         text-align: center;
         top: 8%;
         /*margin-top: 0;*/
@@ -119,3 +119,4 @@ img {
     display: block;
 
 }   
+
